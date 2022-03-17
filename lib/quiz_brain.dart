@@ -3,7 +3,7 @@ import 'question.dart';
 class QuizBrain {
 
   int _questionNumber = 0;
-
+  int c=0;
   List<Question> _questionBank = [
     Question('Approximate one quarter of human bones are in the feet.',true),
     Question('Human Blood is Red', true),
@@ -32,5 +32,29 @@ class QuizBrain {
 
   bool getCorrectAnswer() {
     return _questionBank[_questionNumber].questionAnswer;
+  }
+
+  bool isFinished() {
+    if (_questionNumber >= _questionBank.length - 1) {
+      //print('Now returning true');
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  void reset() {
+    _questionNumber = 0;
+  }
+
+  void increase()
+  {
+    c++;
+  }
+  int ret()
+  {return c;}
+  void reseti()
+  {
+    c=0;
   }
 }

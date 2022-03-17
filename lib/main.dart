@@ -1,3 +1,5 @@
+import 'dart:io';
+import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:flutter/material.dart';
 import 'quiz_brain.dart';
 
@@ -32,22 +34,38 @@ class _QuizPageState extends State<QuizPage> {
 
   List<Icon> scoreKeeper = [];
 
-  // List<String> Questions = [
-  //   'Approximate one quarter of human bones are in the feet.',
-  //   'Human Blood is Red',
-  //   'Rohan lives in America'
-  // ];
-  //
-
-  //
-  // List<bool> answers =[
-  //   true,
-  //   true,
-  //   false
-  // ];
-
-
-  //Question q1 = Question(q:)
+  void checkAnswer(bool userPickedAnswer) {
+    bool correctAnswer = quizBrain.getCorrectAnswer();
+    quizBrain.reseti();
+      int c=quizBrain.ret();
+    setState(() {
+      if (quizBrain.isFinished() == true) {
+        Alert(
+          context: context,
+          title: 'Finished!',
+          desc: 'You\'ve reached the end of the quiz.\nYour final score is $c',
+        ).show();
+        quizBrain.reset();
+        scoreKeeper = [];
+      }
+      else{
+        if(userPickedAnswer == correctAnswer)
+        {
+          scoreKeeper.add(
+              Icon(Icons.check, color: Colors.green,)
+          );
+          quizBrain.increase();
+        }
+        else
+        {
+          scoreKeeper.add(
+              Icon(Icons.close, color: Colors.red,)
+          );
+        }
+        quizBrain.nextQuestion();
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -86,14 +104,7 @@ class _QuizPageState extends State<QuizPage> {
               ),
               onPressed: () {
                 //The user picked true.
-                bool correctAnswer = quizBrain.getCorrectAnswer();
-
-                setState(() {
-                  quizBrain.nextQuestion();
-                  scoreKeeper.add(
-                    Icon(Icons.check, color: Colors.green,)
-                );
-                });
+                checkAnswer(true);
               },
             ),
           ),
@@ -112,13 +123,7 @@ class _QuizPageState extends State<QuizPage> {
               ),
               onPressed: () {
                 //The user picked false.
-                bool correctAnswer = quizBrain.getCorrectAnswer();
-                setState(() {
-                  quizBrain.nextQuestion();
-                  scoreKeeper.add(
-                      Icon(Icons.close, color: Colors.red,)
-                  );
-                });
+                checkAnswer(false);
               },
             ),
           ),
