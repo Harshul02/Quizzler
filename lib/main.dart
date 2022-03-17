@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'quiz_brain.dart';
+
+QuizBrain quizBrain = QuizBrain();
 
 void main() => runApp(Quizzler());
 
@@ -27,28 +30,25 @@ class QuizPage extends StatefulWidget {
 
 class _QuizPageState extends State<QuizPage> {
 
-  List<Icon> scoreKeeper = [
-    Icon(
-      Icons.check,
-      color: Colors.green,
-    ),
-    Icon(
-      Icons.close,
-      color: Colors.red,
-    ),
-    Icon(
-      Icons.close,
-      color: Colors.red,
-    ),
-    Icon(
-      Icons.close,
-      color: Colors.red,
-    ),
-    Icon(
-      Icons.close,
-      color: Colors.red,
-    ),
-  ];
+  List<Icon> scoreKeeper = [];
+
+  // List<String> Questions = [
+  //   'Approximate one quarter of human bones are in the feet.',
+  //   'Human Blood is Red',
+  //   'Rohan lives in America'
+  // ];
+  //
+  int questionNumber = 0;
+  //
+  // List<bool> answers =[
+  //   true,
+  //   true,
+  //   false
+  // ];
+
+
+  //Question q1 = Question(q:)
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -61,7 +61,7 @@ class _QuizPageState extends State<QuizPage> {
             padding: EdgeInsets.all(10.0),
             child: Center(
               child: Text(
-                'This is where the question text will go.',
+                quizBrain.questionBank[questionNumber].questionText,
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 25.0,
@@ -86,7 +86,10 @@ class _QuizPageState extends State<QuizPage> {
               ),
               onPressed: () {
                 //The user picked true.
+                bool correctAnswer = quizBrain.questionBank[questionNumber].questionAnswer;
+
                 setState(() {
+                  questionNumber++;
                   scoreKeeper.add(
                     Icon(Icons.check, color: Colors.green,)
                 );
@@ -109,6 +112,13 @@ class _QuizPageState extends State<QuizPage> {
               ),
               onPressed: () {
                 //The user picked false.
+                bool correctAnswer = quizBrain.questionBank[questionNumber].questionAnswer;
+                setState(() {
+                  questionNumber++;
+                  scoreKeeper.add(
+                      Icon(Icons.close, color: Colors.red,)
+                  );
+                });
               },
             ),
           ),
