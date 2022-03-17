@@ -38,7 +38,7 @@ class _QuizPageState extends State<QuizPage> {
   //   'Rohan lives in America'
   // ];
   //
-  int questionNumber = 0;
+
   //
   // List<bool> answers =[
   //   true,
@@ -61,7 +61,7 @@ class _QuizPageState extends State<QuizPage> {
             padding: EdgeInsets.all(10.0),
             child: Center(
               child: Text(
-                quizBrain.questionBank[questionNumber].questionText,
+                quizBrain.getQuestionText(),
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 25.0,
@@ -86,10 +86,10 @@ class _QuizPageState extends State<QuizPage> {
               ),
               onPressed: () {
                 //The user picked true.
-                bool correctAnswer = quizBrain.questionBank[questionNumber].questionAnswer;
+                bool correctAnswer = quizBrain.getCorrectAnswer();
 
                 setState(() {
-                  questionNumber++;
+                  quizBrain.nextQuestion();
                   scoreKeeper.add(
                     Icon(Icons.check, color: Colors.green,)
                 );
@@ -112,9 +112,9 @@ class _QuizPageState extends State<QuizPage> {
               ),
               onPressed: () {
                 //The user picked false.
-                bool correctAnswer = quizBrain.questionBank[questionNumber].questionAnswer;
+                bool correctAnswer = quizBrain.getCorrectAnswer();
                 setState(() {
-                  questionNumber++;
+                  quizBrain.nextQuestion();
                   scoreKeeper.add(
                       Icon(Icons.close, color: Colors.red,)
                   );
