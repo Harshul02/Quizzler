@@ -45,6 +45,8 @@ class QuizBrain {
 
   void reset() {
     _questionNumber = 0;
+    c=0;
+
   }
 
   void increase()
@@ -53,8 +55,5 @@ class QuizBrain {
   }
   int ret()
   {return c;}
-  void reseti()
-  {
-    c=0;
-  }
+
 }

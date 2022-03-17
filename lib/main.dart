@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'quiz_brain.dart';
 
 QuizBrain quizBrain = QuizBrain();
-
+//int c=quizBrain.ret();
 void main() => runApp(Quizzler());
 
 class Quizzler extends StatelessWidget {
@@ -34,12 +34,14 @@ class _QuizPageState extends State<QuizPage> {
 
   List<Icon> scoreKeeper = [];
 
+
   void checkAnswer(bool userPickedAnswer) {
+  //int c=0;
     bool correctAnswer = quizBrain.getCorrectAnswer();
-    quizBrain.reseti();
-      int c=quizBrain.ret();
     setState(() {
+
       if (quizBrain.isFinished() == true) {
+        int c=quizBrain.ret();
         Alert(
           context: context,
           title: 'Finished!',
@@ -65,6 +67,7 @@ class _QuizPageState extends State<QuizPage> {
         quizBrain.nextQuestion();
       }
     });
+    //quizBrain.reseti();
   }
 
   @override
@@ -132,6 +135,7 @@ class _QuizPageState extends State<QuizPage> {
          children: scoreKeeper,
         )
       ],
+
     );
   }
 }
